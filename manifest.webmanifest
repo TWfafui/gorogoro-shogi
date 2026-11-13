@@ -1,0 +1,18 @@
+{
+  "id": "./gorogoro-shogi",
+  "name": "ごろごろどうぶつしょうぎ",
+  "short_name": "ごろごろ将棋",
+  "description": "一起玩 5×6 的動物將棋。",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f3e9",
+  "theme_color": "#f6f3e9",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

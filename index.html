@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3e9">
+  <meta name="description" content="ごろごろどうぶつしょうぎ · Goro-Goro Dobutsu Shogi 支援手機雙人、三階電腦、逐手回顧、TXT棋譜與離線遊玩的5×6動物將棋。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>ごろごろどうぶつしょうぎ · Goro-Goro Dobutsu Shogi</title>
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./base.css?v=2">
+  <link rel="stylesheet" href="./design.css?v=2">
+</head>
+<body data-screen="home">
+  <div class="portrait-notice" role="alert"><span class="rotate-phone" aria-hidden="true">↻</span><h1>轉個方向，一起玩。</h1><p>請將手機轉為直式。</p></div>
+  <main class="app home" id="app">
+    <section id="home-screen" class="home-screen" aria-label="首頁">
+      <div class="home-top"><button class="icon-button help-button" id="home-rules" aria-label="遊戲規則">?</button><button class="icon-button" id="home-settings" aria-label="設定"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 3-.7 2.2-2 .9L5 5.5 3 9l1.7 1.6v2.8L3 15l2 3.5 2.3-.6 2 .9L10 21h4l.7-2.2 2-.9 2.3.6 2-3.5-1.7-1.6v-2.8L21 9l-2-3.5-2.3.6-2-.9L14 3Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+      <div class="home-title"><h1 lang="ja">ごろごろどうぶつしょうぎ</h1><p lang="en">Goro-Goro Dobutsu Shogi</p></div>
+      <div class="home-animals" aria-hidden="true"><img class="home-cat" src="./assets/cat.svg" alt=""><img class="home-lion" src="./assets/lion.svg" alt=""><img class="home-dog" src="./assets/dog.svg" alt=""><img class="home-chick" src="./assets/chick.svg" alt=""></div>
+      <div class="home-modes" role="group" aria-label="選擇對弈模式">
+        <button class="home-mode" data-mode="com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="14" rx="4"/><path d="M12 2v4M1 12h3m16 0h3m-15 0h1m6 0h1m-7 4h6"/></svg><span>挑戰電腦<small>1P vs COM</small></span></button>
+        <button class="home-mode" data-mode="pvp"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M2 21v-4a6 6 0 0 1 12 0v4m1-8a5 5 0 0 1 7 4v4"/></svg><span>雙人對弈<small>1P vs 2P</small></span></button>
+        <button class="home-mode" id="home-history"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8M14 3v6h6M14 3l6 6M7 8h3M7 12h4M7 16h3"/><circle cx="17" cy="17" r="5"/><path d="M17 14v3l2 1"/></svg><span>棋局回顧<small>最近七場棋局</small></span></button>
+      </div>
+      <div class="home-future" role="group" aria-label="未來開放的玩法"><button class="future-mode" disabled><strong>豬兔變體版</strong><small>尚未開放</small></button><button class="future-mode" disabled><strong>單人解謎</strong><small>尚未開放</small></button></div>
+      <div class="home-bottom"><button id="resume-game" class="button-secondary" hidden>繼續目前對局</button></div>
+    </section>
+    <section id="game-screen" class="game-screen" aria-label="動物將棋對局" hidden>
+      <div class="turn-banner" id="turn-banner" aria-live="polite"><span class="turn-dot" aria-hidden="true"></span><div class="turn-content"><div class="turn-line"><strong id="turn-title"></strong><span class="game-badge" id="game-badge"></span></div><div class="turn-line"><span id="turn-subtitle"></span><span id="move-counter" class="move-counter"></span></div></div></div>
+      <div class="tabletop">
+        <div class="player-row" id="player-top"></div>
+        <div class="board-wrap">
+          <div class="column-coords" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span></div>
+          <div class="row-coords" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+          <div class="board" id="board" role="group" aria-label="五乘六棋盤"></div>
+        </div>
+        <div class="player-row" id="player-bottom"></div>
+      </div>
+      <div class="board-note" id="board-note" aria-live="polite"></div>
+      <div class="tools" id="game-tools" role="group" aria-label="遊戲工具">
+        <button id="go-home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8M5 10v11h5v-7h4v7h5V10"/></svg><span>回到首頁</span></button>
+        <button id="undo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4-6 6 6 6M3 10h10a6 6 0 0 1 0 12"/></svg><span>悔棋</span></button>
+        <button id="new-game"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8a9 9 0 1 0 1 8M20 3v5h-5"/></svg><span>新的一局</span></button>
+        <button id="resign" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V3m0 1c5-4 9 4 14 0v10c-5 4-9-4-14 0"/></svg><span>認輸</span></button>
+        <button id="settings-open"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 3-.7 2.2-2 .9L5 5.5 3 9l1.7 1.6v2.8L3 15l2 3.5 2.3-.6 2 .9L10 21h4l.7-2.2 2-.9 2.3.6 2-3.5-1.7-1.6v-2.8L21 9l-2-3.5-2.3.6-2-.9L14 3Z"/><circle cx="12" cy="12" r="3"/></svg><span>設定</span></button>
+      </div>
+      <div class="review-controls" id="review-controls" hidden>
+        <div class="review-steps" role="group" aria-label="逐手回顧"><button id="review-first" aria-label="回到開局" title="開局">|‹</button><button id="review-prev" aria-label="回顧上一步" title="上一步">‹</button><span id="review-position" aria-live="polite"></span><button id="review-next" aria-label="回顧下一步" title="下一步">›</button><button id="review-last" aria-label="跳到最後一手" title="最後一手">›|</button></div>
+        <section class="record-panel" id="move-record" aria-label="完整回顧棋譜">
+          <div class="record-heading"><h2>棋譜</h2><span class="record-key" id="record-side-key">先手大寫 · 後手小寫</span><button id="notation-help" aria-label="棋譜記法說明">?</button></div>
+          <ol class="draft-moves" id="move-list" aria-label="選擇歷史棋步"></ol>
+        </section>
+        <div class="review-actions"><button id="exit-review" class="button-secondary">回到首頁</button><button id="export-record" class="button-primary">匯出棋譜</button></div>
+      </div>
+    </section>
+    <footer id="app-footer"><button class="offline-status" id="offline-status"><span class="status-dot" aria-hidden="true">!</span><span>離線遊玩</span></button><p class="home-credits"><span lang="en">Game Designed by <span lang="ja">北尾まどか</span></span><span>本網頁僅供將棋愛好者學習，絕無營利目的</span></p></footer>
+    <span id="storage-warning" role="status" hidden>無法儲存進度</span>
+  </main>
+  <dialog id="sheet"><div class="sheet-top"><button id="sheet-close" class="icon-button" aria-label="關閉視窗">×</button></div><input id="record-import-file" type="file" accept=".txt,text/plain" hidden><div id="sheet-content"></div></dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <noscript>請開啟 JavaScript，才能與動物們一起遊玩</noscript>
+  <script type="module" src="./app.js?v=2"></script>
+</body>
+</html>
