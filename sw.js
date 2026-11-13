@@ -1,9 +1,9 @@
-const CACHE = 'gorogoro-shogi-v2';
+const CACHE = 'gorogoro-shogi-v4';
 const CACHE_PREFIX = 'gorogoro-shogi-';
 const FILES = [
   './', './index.html',
-  './base.css', './base.css?v=2', './design.css', './design.css?v=2',
-  './app.js', './app.js?v=2', './engine.js', './ai.js', './ai-worker.js',
+  './base.css', './base.css?v=4', './design.css', './design.css?v=4',
+  './app.js', './app.js?v=4', './engine.js', './ai.js', './ai-worker.js',
   './session.js', './notation.js', './record-export.js', './record-import.js',
   './rules-pages.js', './manifest.webmanifest',
   './assets/lion.svg', './assets/dog.svg', './assets/cat.svg',

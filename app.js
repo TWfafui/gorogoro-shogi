@@ -11,7 +11,7 @@ const images={L:'lion',D:'dog',C:'cat',P:'chick',H:'hen',S:'super-cat'};
 const levels={low:'簡單',medium:'普通',high:'困難'};
 const levelDescriptions={low:'適合棋類遊戲新手',medium:'玩過象棋或西洋棋',high:'我是將棋高手玩家'};
 const STORE='gorogoro-shogi-v1';
-const OFFLINE_CACHE='gorogoro-shogi-v2';
+const OFFLINE_CACHE='gorogoro-shogi-v4';
 let saved=null,storageOK=true;
 try{saved=JSON.parse(localStorage.getItem(STORE));}catch{storageOK=false;}
 const session=new GameSession(saved);
@@ -120,7 +120,7 @@ $('#move-list').addEventListener('click',event=>{
   if(!Number.isInteger(index)||index<0||index>=session.reviewLength)return;
   if(session.reviewAt(index)){render();$('#move-list').querySelector('[aria-current="step"]')?.focus?.({preventScroll:true});}
 });
-$('#notation-help').onclick=()=>showSheet(`<h2>怎麼讀棋譜？</h2><p>先手用大寫、後手用小寫，依這局實際的先後手區分。</p><table class="ai-table"><tbody>${[['L','獅子'],['D','狗'],['C','貓'],['P','小雞'],['H','母雞'],['S','強化貓']].map(([symbol,name])=>`<tr><td>${symbol} / ${symbol.toLowerCase()}</td><td>${name}</td></tr>`).join('')}</tbody></table><p>座標 a–e 對應 A–E，排數為1–6。<br><code>Dc6-c5</code>：狗從 C6 移到 C5<br><code>Pc4xc3</code>：小雞移到 C3 並吃子<br><code>P*b3</code>：打入小雞到 B3<br><code>Pb3-b2+</code>：小雞移到 B2 並升級</p><p>每手左側是手數，右側是棋步；點選任一手查看盤面。上方的 |‹ 回到第0手，›| 跳到最後一手。</p>`);
+$('#notation-help').onclick=()=>showSheet(`<h2>怎麼讀棋譜？</h2><p>先手用大寫、後手用小寫，依這局實際的先後手區分。</p><table class="ai-table"><tbody>${[['L','獅子'],['D','狗'],['C','貓'],['P','小雞'],['H','母雞'],['S','強化貓']].map(([symbol,name])=>`<tr><td>${symbol} / ${symbol.toLowerCase()}</td><td>${name}</td></tr>`).join('')}</tbody></table><p>座標 a–e 對應直行 A–E ，橫列為1–6<br><code>Dc6-c5</code>：狗從 C6 移到 C5<br><code>Pc4xc3</code>：小雞移到 C3 並吃子<br><code>P*b3</code>：打入小雞到 B3<br><code>Pb3-b2+</code>：小雞移到 B2 並升級</p><p>每手左側是手數，右側是棋步；點選任一手查看盤面。上方的 |‹ 回到第0手，›| 跳到最後一手。</p>`);
 window.addEventListener('resize',()=>{if(session.screen==='review')scrollCurrentMove();});
 window.visualViewport?.addEventListener('resize',()=>{if(session.screen==='review')scrollCurrentMove();});
 function stopComputer(){taskId++;worker?.terminate();worker=null;thinking=false;}
